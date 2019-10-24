@@ -310,7 +310,7 @@
       prevTab () {
         let cb = () => {
           if (this.activeTabIndex > 0) {
-            this.setValidationError(null)
+            this.resetValidationError()
             this.changeTab(this.activeTabIndex, this.activeTabIndex - 1)
           }
         }
@@ -344,8 +344,11 @@
         this.tabs[this.activeTabIndex].validationError = error
         this.$emit('on-error', error)
       },
+      resetValidationError () {
+        this.tabs[this.activeTabIndex].validationError = null;
+      },
       validateBeforeChange (promiseFn, callback) {
-        this.setValidationError(null)
+        this.resetValidationError()
         // we have a promise
         if (isPromise(promiseFn)) {
           this.setLoading(true)
